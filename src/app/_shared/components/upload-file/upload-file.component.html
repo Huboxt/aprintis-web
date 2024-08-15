@@ -1,0 +1,9 @@
+<div class="file-uploader">
+  <input
+    #fileUpload
+    accept="application/pdf"
+    type="file"
+    name="file"
+    (change)="onChangeUploadFile($any($event.target).files)"
+  />
+</div>

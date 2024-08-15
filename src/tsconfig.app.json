@@ -1,0 +1,26 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "outDir": "../out-tsc/app",
+    "module": "esnext",
+    "types": ["node"]
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "strictInjectionParameters": true,
+    "preserveWhitespaces": false,
+    "fullTemplateTypeCheck": true
+  },
+  "exclude": [
+    "src/test.ts",
+    "**/*.spec.ts"
+  ],
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
+    "include": [
+        "src/**/*.d.ts"
+    ]
+}
