@@ -8,7 +8,8 @@
       <div class="d-flex form-container">
         <form class="d-lg-flex" [formGroup]="calcForm">
           <mat-form-field class="input input-row1 color">
-            <mat-label>Options</mat-label>
+            <div class="label" style="margin-bottom: 10px;">Options</div>
+            <!-- <mat-label>Options</mat-label> -->
             <mat-select (selectionChange)="setPricing()" disableRipple panelClass="pages-dropdownlist"
               formControlName="color">
               <mat-option *ngFor="let color of colorOpts" [value]="color.id">
@@ -17,7 +18,8 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field class="input input-row1 input-pages">
-            <mat-label>Pages</mat-label>
+            <div class="label" style="margin-bottom: 10px;">Pages</div>
+            <!-- <mat-label>Pages</mat-label> -->
             <mat-select (selectionChange)="setPricing()" disableRipple panelClass="pages-dropdownlist"
               formControlName="numPages">
               <mat-option *ngFor="let number of numberPages" [value]="number.id">
@@ -26,7 +28,8 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field class="input input-row1 copies">
-            <mat-label>Copies</mat-label>
+            <div class="label" style="margin-bottom: 10px;">Copies</div>
+            <!-- <mat-label>Copies</mat-label> -->
             <mat-select (selectionChange)="setPricing()" disableRipple panelClass="pages-dropdownlist"
               formControlName="numCopies">
               <mat-option *ngFor="let number of numberOfCopies" [value]="number.id">
@@ -34,9 +37,9 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </form>  
+        </form>
       </div>
-      
+
     </div>
     <div class="total-summary">
       <div class="d-flex flex-wrap flex-md-nowrap justify-content-between total-content">
