@@ -3,12 +3,19 @@
 
 .login-dialog-main {
   justify-content: flex-start !important;
+  .mat-dialog-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 
   form {
     display: flex !important;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+  }
+  .input-padding-left {
+    padding-left: 15px;
   }
 }
 
@@ -109,4 +116,7 @@
   text-align: right;
   color: #333333;
   cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: -20px;
 }

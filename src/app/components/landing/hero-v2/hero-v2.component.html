@@ -1,14 +1,55 @@
-<div class="wr-new">
-  <div (click)="right()" class="chev2">
-    ‹
-  </div>
-  <div id="new-slider" class="new-slider">
-    <div *ngFor="let img of rows.main"  class="box-img" [ngStyle]="{'left.px': movement}">
-      <img class="point" src="{{assetsUrl + img}}.png"  (click)="openPdf(img )" alt="magazine cover #{{img}}"
-      loading="lazy" id="cover{{img}}"/>
+<div class="hero-comp">
+  <div class="hero-wrap">
+    <div #firstRow [ngStyle]="rowStyles" class="hero-row">
+      <!-- <div class="hero-row-container firstRow" [@SlowLeftEnter]="oddRowState" *ngIf="oddRowState"> -->
+      <div class="hero-row-container firstRow">
+        <div *ngFor="let img of rows.first" class="box-img">
+          <img #imgElemFirst
+               src="{{assetsUrl + img}}.png"
+               (click)="openPdf(img, textContainer, imgElemFirst)" alt="magazine cover #{{img}}"
+               loading="lazy"/>
+        </div>
+      </div>
+    </div>
+    <div [ngStyle]="rowStyles" class="hero-row">
+      <!-- <div class="hero-row-container hero-row-central" [@listFadeInAnimation]="evenRowState"> -->
+      <div class="hero-row-container hero-row-central">
+        <div *ngFor="let img of rows.second" class="box-img">
+          <img #imgElemMiddle loading="lazy"
+               src="{{assetsUrl + img}}.png"
+               alt="magazine cover #{{img}}" (click)="openPdf(img, textContainer, imgElemMiddle)"/>
+        </div>
+      </div>
+    </div>
+    <div #thirdRow [ngStyle]="rowStyles" class="hero-row">
+      <!-- <div class="hero-row-container thirdRow" [@SlowRightEnter]="oddRowState" *ngIf="oddRowState"> -->
+      <div class="hero-row-container thirdRow">
+        <div *ngFor="let img of rows.third" class="box-img">
+          <img #imgElemLast [class.hide]="checkIfOverlaps(textContainer, imgElemLast)" src="{{assetsUrl + img}}.png"
+               alt="magazine cover #{{img}}" (click)="openPdf(img, textContainer, imgElemLast)"
+               loading="lazy"/>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="rows.fourth.length > 0" [ngStyle]="rowStyles" class="hero-row">
+      <div class="hero-row-container">
+        <div *ngFor="let img of rows.fourth" class="box-img">
+          <img src="{{assetsUrl + img}}.png" alt="magazine cover #{{img}}" (click)="openPdf(img)" loading="lazy"/>
+        </div>
+      </div>
     </div>
   </div>
-  <div (click)="left()" class="chev2" >
-    ›
+  <div [ngStyle]="textContainerStyles" class="hero-text" #textContainer>
+    <div class="inner-container">
+      <div class="main-title">
+        <span class="accent">Creative expressions</span><br>
+        from all across <br>the country
+      </div>
+      <div class="call-to-action">
+        <button class="nav-get-started" (click)="clickGetStarted()" mat-button>
+          <div class="nav-get-started-text">Get Started</div>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

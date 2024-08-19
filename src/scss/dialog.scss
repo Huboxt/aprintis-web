@@ -75,6 +75,7 @@
     .mat-dialog-container {
       padding-bottom: 30px;
     }
+    background-color: white;
   }
 
   &.normal,
@@ -292,7 +293,7 @@
           textarea {
             @include typography-lvl(1.062rem, normal, normal, 'Averta', 0.29px);
             color: #333333;
-            padding-left: 1.25rem;
+            // padding-left: 1.25rem;
             height: 30px;
             width: 100%;
 

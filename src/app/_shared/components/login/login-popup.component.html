@@ -7,11 +7,11 @@
     <div mat-dialog-title>Login</div>
     <div mat-dialog-content>
       <mat-form-field>
-        <input matInput formControlName="email" placeholder="Email" cdkFocusInitial>
+        <input matInput formControlName="email" placeholder="Email" cdkFocusInitial class="input-padding-left">
         <mat-error *ngIf="email.invalid">{{getErrorMessage(email)}}</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="password" placeholder="Password" type="password">
+        <input matInput formControlName="password" placeholder="Password" type="password" class="input-padding-left">
         <mat-error *ngIf="email.invalid">{{getErrorMessage(password)}}</mat-error>
         <div matSuffix>
           <a class="link-forgot" (click)="goToForgotPassword()">Forgot?</a>

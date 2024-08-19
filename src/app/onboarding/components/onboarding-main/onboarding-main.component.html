@@ -64,16 +64,23 @@
       </div>
       <div>
         Add/invite editors, contributors and sponsors.
-        <button class="go-button-on invert" disabled> Invite contributors</button>
+        <button class="go-button-on invert" [ngClass]="{'disabled-button': !(isAuthenticated$ | async)}" disabled>
+          Invite contributors
+        </button>
       </div>
       <div>
         Use aPrintis templates or own design to create PDF from your preferred graphics software.
-        <button class="go-button-on invert" disabled> Select Template</button>
+        <button class="go-button-on invert" [ngClass]="{'disabled-button': !(isAuthenticated$ | async)}" disabled>
+          Select Template
+        </button>
       </div>
       <div>
         Upload PDF and send to print after aPrintis review.
-        <button class="go-button-on invert" disabled> Upload</button>
+        <button class="go-button-on invert" [ngClass]="{'disabled-button': !(isAuthenticated$ | async)}" disabled>
+          Upload
+        </button>
       </div>
+
     </div>
   </div>
   <!-- <div class="steps">
