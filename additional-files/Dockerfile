@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY ./ ./
 RUN npm install --legacy-peer-deps
-RUN npm run build:app &
+# RUN npm run build:app &
 # RUN npm run serve-gl
 
 
