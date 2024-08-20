@@ -1,0 +1,40 @@
+name: deploy-hetzner
+on:
+  push:
+    branches: [ ui-improvements ]
+env:
+  CI: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18
+      #     registry-url: https://registry.npmjs.org/
+      # - run: npm i
+      - run: echo ${{ secrets.ENV_DEV }} | base64 --decode > .env
+
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@5.2.1
+        with:
+          switches: -avzr
+          path: additional-files/ * .env
+          remote_path: /opt/aprintis-web/
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_user: ${{ secrets.DEPLOY_USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /opt/aprintis-web/
+            docker-compose build --no-cache
+            docker-compose up -d
+            docker system prune -af

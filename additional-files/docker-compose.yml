@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  aprintis-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aprintis-web
+    container_name: aprintis-web
+    restart: unless-stopped
+    command: ["pm ", "run", "serve-gl"]
+    environment:
+      VIRTUAL_HOST: ${DOMAIN_NAME}
+      LETSENCRYPT_HOST: ${DOMAIN_NAME}
+      LETSENCRYPT_EMAIL: ${NOTIFICATION_EMAIL}
+      VIRTUAL_PORT: 3000
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "256m"
+        max-file: "10"
+networks:
+  default:
+    external:
+      name: nginx-proxy
