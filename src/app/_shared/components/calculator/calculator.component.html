@@ -12,7 +12,7 @@
             <!-- <mat-label>Options</mat-label> -->
             <mat-select (selectionChange)="setPricing()" disableRipple panelClass="pages-dropdownlist"
               formControlName="color">
-              <mat-option *ngFor="let color of colorOpts" [value]="color.id">
+              <mat-option *ngFor="let color of colorOpts" [value]="color.id" style="background-color: white;">
                 {{ color.value }}
               </mat-option>
             </mat-select>
@@ -22,7 +22,7 @@
             <!-- <mat-label>Pages</mat-label> -->
             <mat-select (selectionChange)="setPricing()" disableRipple panelClass="pages-dropdownlist"
               formControlName="numPages">
-              <mat-option *ngFor="let number of numberPages" [value]="number.id">
+              <mat-option *ngFor="let number of numberPages" [value]="number.id" style="background-color: white;">
                 {{ number.value }}
               </mat-option>
             </mat-select>
@@ -32,7 +32,7 @@
             <!-- <mat-label>Copies</mat-label> -->
             <mat-select (selectionChange)="setPricing()" disableRipple panelClass="pages-dropdownlist"
               formControlName="numCopies">
-              <mat-option *ngFor="let number of numberOfCopies" [value]="number.id">
+              <mat-option *ngFor="let number of numberOfCopies" [value]="number.id" style="background-color: white;">
                 {{ number.value }}
               </mat-option>
             </mat-select>
