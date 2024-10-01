@@ -35,38 +35,61 @@ export class PageHeaderComponent implements OnInit, OnDestroy  {
   }
 
   ngOnInit() {
+    console.log('PageHeaderComponent initialized');
     this.setupMessageListener();
     this.checkLocalStorageAndLogin();
   }
 
   ngOnDestroy() {
-    // Видаляємо слухача подій при знищенні компонента
+    console.log('Removing message listener');
     if (this.messageListener) {
       window.removeEventListener('message', this.messageListener);
     }
   }
 
   private setupMessageListener() {
+    console.log('Setting up message listener');
     this.messageListener = (event: MessageEvent) => {
-      // Перевіряємо походження повідомлення (замініть на ваш домен)
-      if (event.origin !== "https://v2-aprintis.huboxt.com") return;
+      console.log('Received message:', event);
 
-      if (event.data.isOpen === 'true') {
-        this.ngZone.run(() => {
-          localStorage.setItem('isOpen', 'true');
-          this.checkLocalStorageAndLogin();
-        });
+      // Log the origin of the message
+      console.log('Message origin:', event.origin);
+
+      // Check if the event has data
+      if (event.data) {
+        console.log('Message data:', event.data);
+
+        // Check if the isOpen property exists and is 'true'
+        if (event.data.isOpen === 'true') {
+          console.log('isOpen is true, setting localStorage');
+          this.ngZone.run(() => {
+            localStorage.setItem('isOpen', 'true');
+            console.log('localStorage after setting:', localStorage.getItem('isOpen'));
+            this.checkLocalStorageAndLogin();
+          });
+        } else {
+          console.log('isOpen is not true or not present in the message');
+        }
+      } else {
+        console.log('No data in the message');
       }
     };
 
     window.addEventListener('message', this.messageListener);
+    console.log('Message listener set up');
   }
 
   private checkLocalStorageAndLogin() {
+    console.log('Checking localStorage');
     const isOpen = localStorage.getItem('isOpen');
+    console.log('isOpen in localStorage:', isOpen);
     if (isOpen === 'true') {
+      console.log('Calling goToLogin');
       this.goToLogin();
       localStorage.removeItem('isOpen');
+      console.log('Removed isOpen from localStorage');
+    } else {
+      console.log('isOpen is not true in localStorage');
     }
   }
 
