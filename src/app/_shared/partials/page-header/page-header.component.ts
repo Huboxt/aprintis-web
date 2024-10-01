@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'auth/auth.service';
@@ -11,7 +11,7 @@ import { LoginService } from '_services';
   templateUrl: './page-header.component.html',
   styleUrls: ['./page-header.component.scss'],
 })
-export class PageHeaderComponent {
+export class PageHeaderComponent implements OnInit {
   assetsUrl = environment.assetsUrl;
   isAdmin = false;
   isAuthenticated$: Observable<boolean>;
@@ -29,6 +29,18 @@ export class PageHeaderComponent {
     this.isAuthenticated$ = this.authService.isAuthenticated();
     this.currentUser = this.authService.getCurrentUser();
     this.isAdmin = this.authService.isRole(role.admin);
+  }
+
+  ngOnInit() {
+    this.checkLocalStorageAndLogin();
+  }
+
+  checkLocalStorageAndLogin() {
+    const isOpen = localStorage.getItem('isOpen');
+    if (isOpen === 'true' && isOpen === null) {
+      localStorage.removeItem('isOpen');
+      this.goToLogin();
+    }
   }
 
   setDialogConfig(panelClass: string[], data: any): MatDialogConfig {

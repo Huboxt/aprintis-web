@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   registerFromRequestAccess = '';
   redirectUrl = '';
 
-
   constructor(
     private userService: UserService,
     private authService: AuthService,
