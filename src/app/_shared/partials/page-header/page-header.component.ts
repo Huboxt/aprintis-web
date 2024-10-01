@@ -38,7 +38,6 @@ export class PageHeaderComponent implements OnInit {
   checkLocalStorageAndLogin() {
     const isOpen = localStorage.getItem('isOpen');
     if (isOpen === 'true' && isOpen === null) {
-      localStorage.removeItem('isOpen');
       this.goToLogin();
     }
   }
@@ -55,6 +54,7 @@ export class PageHeaderComponent implements OnInit {
   goToLogin() {
     // this.router.navigate([{ outlets: { popup: 'login' } }], { queryParamsHandling: 'preserve' });
     this.loginService.loginDialog();
+    localStorage.removeItem('isOpen');
   }
 
   logout() {
