@@ -4,6 +4,7 @@ import {
   Renderer2,
   ViewChild,
   ViewEncapsulation,
+  NgZone,
 } from '@angular/core';
 import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
@@ -32,9 +33,10 @@ export class LandingHeaderComponent
     protected authService: AuthService,
     protected loginService: LoginService,
     private renderer: Renderer2,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    ngZone: NgZone,
   ) {
-    super(router, authService, loginService);
+    super(router, authService, loginService, ngZone);
   }
 
   ngOnInit() {

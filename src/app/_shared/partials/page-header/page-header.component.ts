@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'auth/auth.service';
 import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { role, User } from '_models';
 import { LoginService } from '_services';
 @Component({
@@ -11,7 +11,7 @@ import { LoginService } from '_services';
   templateUrl: './page-header.component.html',
   styleUrls: ['./page-header.component.scss'],
 })
-export class PageHeaderComponent implements OnInit {
+export class PageHeaderComponent implements OnInit, OnDestroy  {
   assetsUrl = environment.assetsUrl;
   isAdmin = false;
   isAuthenticated$: Observable<boolean>;
@@ -21,26 +21,62 @@ export class PageHeaderComponent implements OnInit {
   textQuery = '';
   offsetLimit = 0;
 
+  private messageListener: any;
+
   constructor(
     protected router: Router,
     protected authService: AuthService,
-    protected loginService: LoginService
-  ) {
+    protected loginService: LoginService,
+    protected ngZone: NgZone,
+    ) {
     this.isAuthenticated$ = this.authService.isAuthenticated();
     this.currentUser = this.authService.getCurrentUser();
     this.isAdmin = this.authService.isRole(role.admin);
   }
 
   ngOnInit() {
+    this.setupMessageListener();
     this.checkLocalStorageAndLogin();
   }
 
-  checkLocalStorageAndLogin() {
+  ngOnDestroy() {
+    // Видаляємо слухача подій при знищенні компонента
+    if (this.messageListener) {
+      window.removeEventListener('message', this.messageListener);
+    }
+  }
+
+  private setupMessageListener() {
+    this.messageListener = (event: MessageEvent) => {
+      // Перевіряємо походження повідомлення (замініть на ваш домен)
+      if (event.origin !== "https://v2-aprintis.huboxt.com") return;
+
+      if (event.data.isOpen === 'true') {
+        this.ngZone.run(() => {
+          localStorage.setItem('isOpen', 'true');
+          this.checkLocalStorageAndLogin();
+        });
+      }
+    };
+
+    window.addEventListener('message', this.messageListener);
+  }
+
+  private checkLocalStorageAndLogin() {
     const isOpen = localStorage.getItem('isOpen');
     if (isOpen === 'true') {
       this.goToLogin();
+      localStorage.removeItem('isOpen');
     }
   }
+
+
+  // checkLocalStorageAndLogin() {
+  //   const isOpen = localStorage.getItem('isOpen');
+  //   if (isOpen === 'true') {
+  //     this.goToLogin();
+  //   }
+  // }
 
   setDialogConfig(panelClass: string[], data: any): MatDialogConfig {
     const dialogConfig = new MatDialogConfig();
@@ -54,7 +90,7 @@ export class PageHeaderComponent implements OnInit {
   goToLogin() {
     // this.router.navigate([{ outlets: { popup: 'login' } }], { queryParamsHandling: 'preserve' });
     this.loginService.loginDialog();
-    localStorage.removeItem('isOpen');
+    // localStorage.removeItem('isOpen');
   }
 
   logout() {
