@@ -37,7 +37,7 @@ export class PageHeaderComponent implements OnInit {
 
   checkLocalStorageAndLogin() {
     const isOpen = localStorage.getItem('isOpen');
-    if (isOpen === 'true' && isOpen === null) {
+    if (isOpen === 'true') {
       this.goToLogin();
     }
   }
