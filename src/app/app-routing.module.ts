@@ -38,6 +38,7 @@ import {
 } from './components';
 import { OnboardingPageAdPricingResolverService } from './onboarding/resolvers';
 import { SelectivePreloadingStrategy } from './selective-preloading-strategy';
+import { LoginComponent } from 'components/login/login-component.component';
 
 // import { SeoService } from '_services/seo.service';
 // import { filter, map } from 'rxjs/operators';
@@ -47,6 +48,17 @@ const routes: Routes = [
   {
     path: 'home',
     component: LandingComponent,
+    data: {
+      seo: {
+        title: 'aPrintis Homepage',
+        description: `Stunning print quality that every school or community can afford`,
+        screenshot: 'featuredImage3.png',
+      },
+    },
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
     data: {
       seo: {
         title: 'aPrintis Homepage',

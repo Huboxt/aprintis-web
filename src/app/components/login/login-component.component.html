@@ -1,0 +1,58 @@
+<div id="modal-overlay" class="modal-full">
+  <div class="modal-login modal-default">
+    <h3 class="title">Login</h3>
+    <span class="modal-close2" (click)="closeModal(null)">
+      <!-- <mat-icon role="img" class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">close</mat-icon> -->
+      <!-- <img class="close-w" src="{{assetsUrl}}/icons/close.png" /> -->
+      <img class="close-b" src="{{assetsUrl}}/icons/close-black.png" />
+    </span>
+    <div class="form {{formStatusClass}}">
+      <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+        <div *ngIf="errorLogin && !loginForm.get('email').invalid && !loginForm.get('password').invalid"
+          class="form-error-top form-error form-error-default">
+          <div>Email or Password is incorrect</div>
+        </div>
+        <div class="form-input">
+          <input (click)="resetLoginError()" type="email" class="input-default input-s1" formControlName="email" placeholder="Email">
+        </div>
+        <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched" class="form-error form-error-default">
+          <div *ngIf="loginForm.get('email').hasError('required')">
+            Email is required
+          </div>
+        </div>
+        <div class="form-input password-input">
+          <input (click)="resetLoginError()" type="password" class="input-default input-s1" formControlName="password" placeholder="Password">
+          <a (click)="goToForgotPassword()" class="link-forgot link-grey">Forgot?</a>
+        </div>
+        <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched" class="form-error form-error-default">
+          <div *ngIf="loginForm.get('password').hasError('required')">
+            Password is required
+          </div>
+        </div>
+        <button type="submit" class="button-turq button-lg no-focus" mat-button>Login</button>
+      </form>
+      <span class="form-text-default">Or login with</span>
+      <button (click)="goToFacebookLogin()" type="button" class="button-social button-face" mat-button>
+        <span class="icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" viewBox="0 0 11 20">
+            <path fill="#3C5A9A" d="M6.753 19.992v-9.083h3.049l.456-3.54H6.753v-2.26c0-1.025.285-1.723 1.754-1.723l1.875-.001V.219C10.057.176 8.945.079 7.65.079c-2.702 0-4.552 1.65-4.552 4.68v2.61H.04v3.54h3.057v9.083h3.655z">
+            </path>
+          </svg>
+        </span>
+        Facebook
+      </button>
+      <button (click)="goToGoogleLogin()" type="button" class="button-social button-google" mat-button>
+        <span class="icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path fill="#4285F4" d="M19.755 10.126c0-.824-.067-1.425-.211-2.05H10.14v3.721h5.52c-.112.925-.712 2.317-2.048 3.252l-.019.125 2.974 2.305.206.021c1.892-1.749 2.982-4.322 2.982-7.374"></path><path fill="#34A853" d="M10.24 20c2.703 0 4.973-.895 6.63-2.439l-3.16-2.46c-.845.592-1.98 1.006-3.47 1.006-2.649 0-4.896-1.756-5.697-4.184l-.118.01-3.09 2.405-.041.113C2.94 17.741 6.323 20 10.239 20"></path><path fill="#FBBC05" d="M4.37 11.909c-.207-.623-.326-1.291-.326-1.98 0-.69.12-1.358.316-1.981l-.006-.133-3.067-2.43-.1.048C.52 6.791.14 8.315.14 9.928s.381 3.138 1.047 4.495L4.37 11.91"></path><path fill="#EB4335" d="M10.201 3.893c1.872 0 3.135.817 3.856 1.5l2.814-2.775C15.142.996 12.893 0 10.2 0c-3.9 0-7.268 2.26-8.907 5.549l3.224 2.528c.808-2.428 3.046-4.184 5.683-4.184"></path></svg>
+        </span>
+        Google
+      </button>
+      <div class="signup-prompt">
+        <span>No account?</span>
+        <button (click)="clickGetStarted()" type="button" class="button-link" mat-button>
+          Get Started
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

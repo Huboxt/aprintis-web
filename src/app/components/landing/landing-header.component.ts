@@ -40,6 +40,8 @@ export class LandingHeaderComponent
   }
 
   ngOnInit() {
+    console.log('LandingHeaderComponent initialized');
+
     this.isHome = this.router.url === '/home';
   }
 
