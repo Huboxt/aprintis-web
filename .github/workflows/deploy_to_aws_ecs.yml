@@ -1,7 +1,7 @@
 name: test-deploy-to-aws-ecs
 on:
   push:
-    branches: [ ui-improvements ]
+    branches: [ ui-improvements-new ]
 
   workflow_dispatch:
     inputs:
